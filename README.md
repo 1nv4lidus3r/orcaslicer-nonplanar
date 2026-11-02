@@ -30,31 +30,31 @@ Community test results with the nonplanar test prints (12°, 5 mm):
 | Bambu Lab H2D | |
 | Flashforge AD5C | |
 | Elegoo Centauri Carbon 2 | |
+| Elegoo Centauri Carbon 2 Combo | |
 | Prusa MK4S | |
 | Prusa CORE One | |
 | Prusa XL 5T | |
 | Creality K1C | |
 | Qidi Q2 | |
+| FLSun V400 | |
 
-**Your printer isn't listed?** Print the comparison test below first. If it prints cleanly (no scraping, no
-marks from the nozzle or hotend on the sloped surfaces), your printer works up to the limits of this version:
+**Your printer isn't listed?** Print the [Nonplanar test print](https://www.printables.com/model/1892634-nonplanar-test-print)
+**twice**: once lengthwise and once rotated by 90° (crosswise). If both print cleanly (no scraping, no marks from
+the nozzle or hotend on the sloped surfaces), your printer works up to the limits of this version:
 **5 mm height span and 12°**. Please report the result in an
 [issue](https://github.com/fich-l/orcaslicer-nonplanar/issues) or on Reddit, so the list can grow.
 
 ## Test prints
 
 > [!TIP]
-> **Print this one first:** [`Nonplanar vs Standard Comparison v1.0.3mf`](test-prints/Nonplanar%20vs%20Standard%20Comparison%20v1.0.3mf)
-> (the print in the photo above). One half is printed standard, the other nonplanar, so you see right away
-> whether nonplanar works on your printer.
+> **Your printer is on the "Works" list?** Print the
+> [Satisfying Nonplanar vs Standard comparison](https://www.printables.com/model/1896179-satisfying-nonplanar-printing-surface-test)
+> (the print in the photo above). One half is printed standard, the other nonplanar.
 >
-> Open it with *File > Open Project*, then select your own printer and filament. The project was made for a
+> Open the project with *File > Open Project*, then select your own printer and filament. It was made for a
 > Bambu Lab H2S. The "standard" half has nonplanar switched off as an object setting, so keep it as it is.
 
-More test prints (for any printer):
-
-1. [Nonplanar test print](https://www.printables.com/model/1892634-nonplanar-test-print)
-2. [Nonplanar surface coaster](https://www.printables.com/model/1892733-nonplanar-surface-coaster-bambu-a1-family-only)
+Another print to try: [Nonplanar surface coaster](https://www.printables.com/model/1892733-nonplanar-surface-coaster-bambu-a1-family-only)
 
 ## Settings
 
@@ -85,8 +85,8 @@ add the Quality setting *Use nonplanar layers* and switch it off.
   - 12° cone and heater block;
   - everything higher than 7.5 mm above the tip counts as a collision.
 
-  The model is a simplified Bambu Lab A1 mini hotend and is used for every printer. If your hotend is wider or
-  blunter, use a lower angle and check the preview carefully.
+  The model is a simplified hotend and is used for every printer. If your hotend is wider or blunter, use a lower
+  angle and check the preview carefully.
 - **Print-order planning:** if a nonplanar surface would be hit by walls printed earlier (or the other way round),
   the material is reordered. The visible top shell is always printed in one piece. If no collision-free order
   exists, slicing stops with a clear message (height, layer, what blocks what, what to change) instead of
@@ -127,16 +127,16 @@ Requirements: Apple Silicon Mac (M1 or newer), macOS 11.3 or newer.
   both can run side by side.
 - Orca's setup wizard asks for your printers and filaments, as in normal OrcaSlicer.
 - **Nonplanar is on by default** (12°, 5 mm) for every printer and process preset.
-- **Bambu Lab A1 mini:** the download contains the preset `0.20mm Nonplanar @BBL A1M.json` (3 top shells, avoid
-  crossing walls). Import it with *File > Import > Import Configs*.
 
 ## Usage
 
-1. Start with the [comparison test](#test-prints). For a **quick test model** of your own: right-click the empty
-   plate > **Add Primitive > Cube**, then tilt the cube by **10°** (rotate tool, or type 10 into the rotation
-   field of one axis). Its sloped top becomes nonplanar. Or load your own model with gently sloped tops (≤ 12°).
-2. Slice as usual and check the preview. Nonplanar areas show smooth top lines instead of steps.
-3. If slicing stops with *"Nonplanar slicing failed at height … (layer …)"*, follow the hint in the message.
+1. **Printer not on either list:** print the [test print twice](#printers) first.
+   **Printer on the "Works" list:** start with the [comparison print](#test-prints).
+2. **Quick test model of your own:** right-click the empty plate > **Add Primitive > Cube**, then tilt the cube by
+   **10°** (rotate tool, or type 10 into the rotation field of one axis). Its sloped top becomes nonplanar. Or load
+   your own model with gently sloped tops (≤ 12°).
+3. Slice as usual and check the preview. Nonplanar areas show smooth top lines instead of steps.
+4. If slicing stops with *"Nonplanar slicing failed at height … (layer …)"*, follow the hint in the message.
    Usually that means lowering *Maximum nonplanar angle* to 10°. Click *Jump to* to select the object.
 
 Slicing takes longer than in normal OrcaSlicer, usually seconds and up to about a minute for complex models,
@@ -166,26 +166,10 @@ This project stands on the work of others. Thank you!
   starting point of this project.
 - **The OrcaSlicer team and community** (SoftFever and all contributors), and the projects OrcaSlicer builds on:
   **Bambu Studio**, **PrusaSlicer** and **Slic3r**.
-- **Anthropic's Claude** (in Claude Code), which wrote the code of this port.
+- **Anthropic's Claude** (in Claude Code), which supported coding.
 
-### How this was made: vibe coding
-
-To be transparent: this port was **vibe-coded**. The code was written by **Claude (Anthropic)**; the ideas,
-decisions, test models and test prints on real printers are by [fich-l](https://github.com/fich-l). Every
-version is checked by automated tests and by G-code checks (slope of every move, clearance against the hotend
-model), but there has been no independent code review. So please check the preview before you print, and
-report what you find.
-
-### What's improved compared with the original
-
-Compared with Daniel Ahlers' original approach (tested in the PrusaSlicer build *PrusaSlicerNonplanar
-2.6.0+teachingtechYT*, on 8 models with the same A1 mini settings, 12° and 5 mm):
-
-| | Original | OrcaSlicer Nonplanar v0.1 |
-|---|---|---|
-| Slicer | PrusaSlicer 2.6 | OrcaSlicer 2.4.2, with its printer profiles (Bambu Lab, Prusa, Creality, Qidi, Elegoo, …) |
-| Moves steeper than the set angle | 1–86 per model | **0 on every model**, checked on the final G-code |
-| Hotend collisions (simplified A1 mini hotend) | on 8 of 8 models | **none on 6 models**, 2 tiny contacts (0.004 / 0.013 mm), 1 model refused with a clear message |
-| Print order | layer by layer | planned against a 3D hotend model (tip, cone, heater block), so walls and surfaces aren't hit; the visible top shell is printed in one piece |
-| When a model can't be printed safely | collisions end up in the G-code | slicing stops with height, layer, cause and what to change |
-| Extra top surface options | — | slope compensation, top line direction, top flow ratio |
+Improvements over the earlier nonplanar builds:
+- ported to OrcaSlicer;
+- no sudden steep moves (bug) any more;
+- no hotend collisions any more;
+- additional options for top surface direction and flow.
