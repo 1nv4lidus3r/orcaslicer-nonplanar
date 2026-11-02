@@ -83,7 +83,7 @@ add the Quality setting *Use nonplanar layers* and switch it off.
   Steeper or taller areas are printed planar as usual.
 - **Preview helpers:** conformal paths are drawn in their own color (bright magenta) in the G-code
   preview, and a small framed **NP** marker next to the plate thumbnail appears only when the sliced
-  output actually contains nonplanar layers.
+  output actually contains nonplanar layers. Currently only with the Windows patch, not in the macOS download.
 - **Collision check against a hotend model**, not just an angle:
   - flat nozzle tip Ø 1.1 mm;
   - 12° cone and heater block;
