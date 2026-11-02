@@ -42,7 +42,7 @@ index 8dcd4cf0..52296f36 100644
  set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE.txt) # must also include in install command
  
 diff --git a/src/libslic3r/GCode/GCodeProcessor.cpp b/src/libslic3r/GCode/GCodeProcessor.cpp
-index 44cb185a..5153c28b 100644
+index 44cb185a..d704ec01 100644
 --- a/src/libslic3r/GCode/GCodeProcessor.cpp
 +++ b/src/libslic3r/GCode/GCodeProcessor.cpp
 @@ -1675,6 +1675,7 @@ void GCodeProcessorResult::reset() {
@@ -53,7 +53,15 @@ index 44cb185a..5153c28b 100644
      layer_filaments.clear();
      filament_change_sequence.clear();
      nozzle_change_sequence.clear();
-@@ -3125,6 +3126,17 @@ void GCodeProcessor::process_tags(const std::string_view comment, bool producers
+@@ -2561,6 +2562,7 @@ void GCodeProcessor::reset()
+     m_options_z_corrector.reset();
+ 
+     m_detect_layer_based_on_tag = false;
++    m_nonplanar_current = false;
+ 
+     m_seams_count = 0;
+     m_preheat_time = 0.f;
+@@ -3125,6 +3127,17 @@ void GCodeProcessor::process_tags(const std::string_view comment, bool producers
          return;
      }
  
@@ -71,7 +79,7 @@ index 44cb185a..5153c28b 100644
      // ; OBJECT_ID  start
      if (boost::starts_with(comment, " start printing object")) {
          m_object_label_id = get_object_label_id(comment);
-@@ -5701,6 +5713,9 @@ void GCodeProcessor::store_move_vertex(EMoveType type, EMovePathType path_type,
+@@ -5701,6 +5714,9 @@ void GCodeProcessor::store_move_vertex(EMoveType type, EMovePathType path_type,
          m_print_z
      });
  
@@ -82,7 +90,7 @@ index 44cb185a..5153c28b 100644
          m_seams_count++;
      }
 diff --git a/src/libslic3r/GCode/GCodeProcessor.hpp b/src/libslic3r/GCode/GCodeProcessor.hpp
-index 1d2e0890..3c219758 100644
+index 1d2e0890..c47c8de1 100644
 --- a/src/libslic3r/GCode/GCodeProcessor.hpp
 +++ b/src/libslic3r/GCode/GCodeProcessor.hpp
 @@ -213,6 +213,10 @@ class Print;
@@ -101,7 +109,7 @@ index 1d2e0890..3c219758 100644
          std::vector<CustomGCode::Item> custom_gcode_per_print_z;
          bool spiral_vase_mode;
 +        // OrcaSlicer Nonplanar: true if the sliced G-code contains at least one
-+        // conformal (nonplanar) path; shown in the preview legend.
++        // conformal (nonplanar) path; shows the NP marker in the preview.
 +        bool has_nonplanar{ false };
          //BBS
          std::vector<SliceWarning> warnings;
@@ -226,7 +234,7 @@ index 81151a5a..ce2784b9 100644
          update_by_mode(wxGetApp().get_mode());
          m_user_mode = wxGetApp().get_mode();
 diff --git a/src/slic3r/GUI/GCodeViewer.hpp b/src/slic3r/GUI/GCodeViewer.hpp
-index 4958fc25..a5394c54 100644
+index 4958fc25..d41994a4 100644
 --- a/src/slic3r/GUI/GCodeViewer.hpp
 +++ b/src/slic3r/GUI/GCodeViewer.hpp
 @@ -190,6 +190,9 @@ private:
@@ -234,7 +242,7 @@ index 4958fc25..a5394c54 100644
      //BBS: add only gcode mode
      bool m_only_gcode_in_preview {false};
 +    // OrcaSlicer Nonplanar: true when the loaded G-code contains conformal (nonplanar)
-+    // paths. Shown in the preview legend as NONPLANAR: VAR / NONPLANAR: YOK.
++    // paths. Shows the NP marker in the preview.
 +    bool m_has_nonplanar {false};
  
      //BBS: extruder dispensing filament
