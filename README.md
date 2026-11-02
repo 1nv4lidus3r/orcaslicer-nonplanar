@@ -1,8 +1,9 @@
 # OrcaSlicer Nonplanar v0.1
 
 > [!IMPORTANT]
-> **macOS with Apple Silicon (M1 or newer) only.**
-> v0.1 doesn't run on Intel Macs, Windows or Linux.
+> **Official build: macOS with Apple Silicon (M1 or newer).**
+> v0.1 ships no Intel Mac, Windows or Linux binary, but the source now also builds on
+> Windows with MSVC — see [`BUILD-WINDOWS.md`](BUILD-WINDOWS.md).
 
 **Test release.** OrcaSlicer 2.4.2 with **nonplanar top surfaces**: the last shells of gently sloped tops
 (up to 12°) follow the surface instead of being printed as stair steps. Every nonplanar move is checked against
@@ -80,6 +81,9 @@ add the Quality setting *Use nonplanar layers* and switch it off.
 - **Nonplanar top surfaces:** areas with a slope of at most **12°** and a height span of at most **5 mm**.
   The visible top shell and two shells below it follow the surface. The top shell has a single outer line.
   Steeper or taller areas are printed planar as usual.
+- **Preview helpers:** conformal paths are drawn in their own color (bright magenta) in the G-code
+  preview, and a small framed **NP** marker next to the plate thumbnail appears only when the sliced
+  output actually contains nonplanar layers.
 - **Collision check against a hotend model**, not just an angle:
   - flat nozzle tip Ø 1.1 mm;
   - 12° cone and heater block;
