@@ -170,6 +170,7 @@ This project stands on the work of others. Thank you!
   starting point of this project.
 - **The OrcaSlicer team and community** (SoftFever and all contributors), and the projects OrcaSlicer builds on:
   **Bambu Studio**, **PrusaSlicer** and **Slic3r**.
+- **[SFRSKZ](https://github.com/SFRSKZ)**: Windows port.
 - **Anthropic's Claude** (in Claude Code), which supported coding.
 
 Improvements over the earlier nonplanar builds:
