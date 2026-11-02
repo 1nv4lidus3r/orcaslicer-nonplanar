@@ -35,6 +35,11 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Orc
 
 The app is at `build/arm64/src/Release/OrcaSlicer.app`.
 
+**If XQuartz is installed:** CMake then links its OpenGL (`/opt/X11/lib/libGL.1.dylib`), and the app only starts on Macs
+with XQuartz. Keep it out of the wxWidgets dependency and the app by configuring both with
+`-DCMAKE_IGNORE_PATH="/usr/X11R6;/usr/X11R6/lib;/usr/X11R6/include;/opt/X11;/opt/X11/lib;/opt/X11/include"`. Check the
+result with `otool -L`: only system libraries may be listed with an absolute path.
+
 ## Tests
 
 The nonplanar C++ tests are in `tests/fff_print/test_nonplanar.cpp` (tag `[Nonplanar]`). Build the
