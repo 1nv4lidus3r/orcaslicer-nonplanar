@@ -173,3 +173,4 @@ Improvements over the earlier nonplanar builds:
 - no sudden steep moves (bug) any more;
 - no hotend collisions any more;
 - additional options for top surface direction and flow.
+- fully integrated + test data from >100 contributors incorporated
