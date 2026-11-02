@@ -168,7 +168,7 @@ index 1c52ffe4..f8268400 100644
          return get_option_color(move_type_to_option(v.type));
  
 diff --git a/src/slic3r/GUI/GCodeViewer.cpp b/src/slic3r/GUI/GCodeViewer.cpp
-index 81151a5a..4f00db23 100644
+index 81151a5a..ce2784b9 100644
 --- a/src/slic3r/GUI/GCodeViewer.cpp
 +++ b/src/slic3r/GUI/GCodeViewer.cpp
 @@ -1124,6 +1124,8 @@ void GCodeViewer::load_as_gcode(const GCodeProcessorResult& gcode_result, const
@@ -196,7 +196,7 @@ index 81151a5a..4f00db23 100644
      m_viewer.set_extrusion_role_color(libvgcode::EGCodeExtrusionRole::Skirt,                    { 127, 255, 127 });
      m_viewer.set_extrusion_role_color(libvgcode::EGCodeExtrusionRole::ExternalPerimeter,        { 255, 255, 0 });
      m_viewer.set_extrusion_role_color(libvgcode::EGCodeExtrusionRole::SupportMaterial,          { 127, 255, 127 });
-@@ -1584,6 +1595,26 @@ void GCodeViewer::render(int canvas_width, int canvas_height, int right_margin)
+@@ -1584,6 +1595,28 @@ void GCodeViewer::render(int canvas_width, int canvas_height, int right_margin)
      float legend_height = 0.0f;
      render_legend(legend_height, canvas_width, canvas_height, right_margin);
  
@@ -204,7 +204,9 @@ index 81151a5a..4f00db23 100644
 +    // plate thumbnail in the preview, shown only when the sliced output actually contains
 +    // nonplanar (conformal) layers. Plain literal, so it reads the same in every language.
 +    if (m_has_nonplanar) {
-+        const ImVec2 np_pos(90.0f * m_scale, 26.0f * m_scale);
++        // Right of the plate thumbnail (drawn in the same ImGui layer at x 15..185, y 25..205
++        // in 1x units), vertically centered on it, with a small gap.
++        const ImVec2 np_pos(130.0f * m_scale, 63.0f * m_scale);
 +        ImGui::SetNextWindowPos(np_pos, ImGuiCond_Always);
 +        ImGui::SetNextWindowBgAlpha(0.55f);
 +        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 6.0f * m_scale);
